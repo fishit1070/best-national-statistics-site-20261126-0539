@@ -32,7 +32,7 @@ export async function renderOverview(root) {
     <section class="panel">
       <p class="panel-head">Largest provinces · BPS mid-2024 projection</p>
       <div class="table-wrap"><table>
-        <thead><tr><th>Province / island</th><th class="num">Population</th><th>Source</th></tr></thead>
+        <thead><tr><th>Province</th><th class="num">Population</th><th>Source</th></tr></thead>
         <tbody>${TOP_PROVINCES.map((p) => `<tr><td>${p.name}</td><td class="num">${fmtInt(p.population)}</td><td>BPS, 2024</td></tr>`).join("")}</tbody>
       </table></div>
       <p class="src">Source: BPS mid-year projection, 2024. Java island alone holds 156,927,800 people.</p>
