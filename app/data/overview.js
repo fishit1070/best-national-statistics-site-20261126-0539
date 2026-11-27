@@ -19,10 +19,10 @@ export const GDP_GROWTH_SERIES = [
 
 export const TOP_PROVINCES = [
   { name: "West Java", population: 50345200 },
+  { name: "East Java", population: 41814500 },
   { name: "Central Java", population: 37892300 },
   { name: "North Sumatra", population: 15588500 },
-  { name: "Jakarta", population: 10684900 },
-  { name: "Java island (total)", population: 156927800 },
+  { name: "Banten", population: 12431400 },
 ];
 
 export const TODAY_ITEMS = [
