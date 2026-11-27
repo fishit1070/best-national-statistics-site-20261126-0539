@@ -1,5 +1,5 @@
 export async function renderPopulation(root) {
-  const { POP_SERIES, AGE_STRUCTURE, PROVINCES, CITIES, DEMO_TILES } = await import("../data/population.js");
+  const { POP_SERIES, AGE_STRUCTURE, PROVINCES, ISLAND_TOTALS, CITIES, DEMO_TILES } = await import("../data/population.js");
   const { lineChart } = await import("../charts.js");
   const { fmtInt } = await import("../format.js");
   const state = { range: 10, sortKey: "population", sortDir: -1 };
@@ -19,16 +19,24 @@ export async function renderPopulation(root) {
   };
   const tableHtml = () =>
     `<div class="table-wrap"><table>
-      <thead><tr><th class="sortable" data-sort="name">Province / island ↕</th><th class="sortable num" data-sort="population">Population ↕</th><th>Source</th></tr></thead>
+      <thead><tr><th class="sortable" data-sort="name">Province ↕</th><th class="sortable num" data-sort="population">Population ↕</th><th>Source</th></tr></thead>
       <tbody>${sortedProvinces().map((p) => `<tr><td>${p.name}</td><td class="num">${fmtInt(p.population)}</td><td>BPS, 2024</td></tr>`).join("")}</tbody>
     </table></div>`;
   root.innerHTML = `
     <h2>Population</h2>
     <p class="lede">281,603,800 people by the BPS mid-2024 projection — 283,487,931 by the World Bank's 2024 estimate. The two differ because they use different methods; both are shown, labelled, throughout this site.</p>
     <section class="panel">
-      <p class="panel-head">Provinces &amp; island totals · click a header to sort</p>
+      <p class="panel-head">All 38 provinces · click a header to sort</p>
       <div id="prov-table">${tableHtml()}</div>
-      <p class="src">Source: BPS mid-year projection, 2024. Indonesia has 38 provinces.</p>
+      <p class="panel-head">Population by island group · BPS geographical units</p>
+      <div class="table-wrap"><table>
+        <tbody>
+          ${ISLAND_TOTALS.map((t) => `<tr><td>${t.name}</td><td class="num">${fmtInt(t.population)}</td><td>BPS, 2024</td></tr>`).join("")}
+          <tr><td><strong>Sum of the 38 provinces (as published)</strong></td><td class="num"><strong>281,603,900</strong></td><td></td></tr>
+          <tr><td><strong>National total (BPS, from unrounded data)</strong></td><td class="num"><strong>281,603,800</strong></td><td></td></tr>
+        </tbody>
+      </table></div>
+      <p class="src">Source: BPS mid-year projection, 2024. Provincial figures are published by BPS rounded to the nearest 100 people; added together they give 281,603,900 — 100 more than the national total of 281,603,800, which BPS computes from unrounded data. The difference is rounding only.</p>
     </section>
     <div class="kpi-grid">
       ${DEMO_TILES.map((t) => `
